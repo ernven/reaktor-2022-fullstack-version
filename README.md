@@ -1,4 +1,4 @@
-# Rock, Paper, Scissors with a bad API. Reaktor assignment for 2022.
+# Rock, Paper, Scissors with a bad API (Reaktor assignment 2022)
 
 Assignment part of the application for Reaktor's 2022 summer program.
 
@@ -49,6 +49,9 @@ If deploying the app, remember to set the environment variables for the backend!
 I decided to also implement a backend for it because even after all the possible optimization, the performance of the frontend app by itself (using only the "bad" api) was unsatisfactory. This was due to the very large amount of data available and not being able to load it selectively. The data is also too much to be stored in LocalStorage, so it cannot even be cached.
 
 This solution then takes the historical data from the bad-api into the backend and stores into a PostgreSQL database (hosted on Azure). The backend also takes updates from the websockets messages and updates the DB accordingly. This way, the frontend app only needs to query for the data it needs, basically all data for a single player at a time (and on top of this, it is only done on-demand).
+
+This new backend contains two endpoints as well. `players` returns a list of players, which can be used by the frontend app to populate the dropdown menu. `data` returns the historical data **but** also allows to filter the results by a player's name.
+These two were set up to meet the requirements of the application, but others could be created too, if we would want to perform some calculations on the backend side, for example. Stats are calculated on the frontend at the moment, but that doesn't seem to affect performance nor UX (it didn't even with the "bad" backend).
 
 As mentioned already, I did not have too much time to do this (the backend and deployment were done in one afternoon), so the UI is functional but basic. It could definitely be improved, as well as extra features added.
 
