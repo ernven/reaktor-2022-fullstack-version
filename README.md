@@ -2,7 +2,7 @@
 
 Assignment part of the application for Reaktor's 2022 summer program.
 
-This is the final version, consisting of a full-stack web application. The first try can be found [here](https://github.com/ernven/reaktor-2022/) and it contains all the first commits for the frontend application.
+This is the final version, consisting of a full-stack web application. The first try can be found [here](https://github.com/ernven/reaktor-2022/) and it contains all the first commits for the frontend application. More information about the solution can be found under [Project insights](#project-insights).
 
 
 The app is working at the moment! [link]()
