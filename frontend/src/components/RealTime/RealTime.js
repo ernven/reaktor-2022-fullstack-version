@@ -50,9 +50,9 @@ export default function RealTime() {
   }
 
   return (
-    <div style={{minHeight: '30vh'}}>
+    <div>
 
-      <div style={{minHeight: '18em'}}>
+      <div style={{minHeight: '13em'}}>
         <Typography variant='h6' color='red'>Live Games</Typography>
         {buildGameList(ongoing)}
       </div>
