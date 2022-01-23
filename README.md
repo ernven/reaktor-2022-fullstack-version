@@ -1,4 +1,4 @@
-# Rock, Paper, Scissors with a bad API (Reaktor asgmt. 2022)
+# Rock, Paper, Scissors with a bad API (for Reaktor 2022)
 
 Assignment part of the application for Reaktor's 2022 summer program.
 
