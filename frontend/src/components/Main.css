@@ -1,0 +1,15 @@
+#main-container {
+  display: flex;
+  padding-top: 3em;
+  min-height: 75vh;
+}
+
+#historical-container {
+  width: 68%;
+}
+
+#live-container {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 32%;
+}
