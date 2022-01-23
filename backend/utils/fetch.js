@@ -2,6 +2,8 @@ import axios from 'axios'
 
 import insertUtil from './insertUtil.js'
 
+const timeout = time => new Promise(resolve => setTimeout(resolve, time))
+
 // Function for fetching gameData from the bad API.
 export default async function fetch() {
   const url = process.env.BAD_API_URL
@@ -9,10 +11,11 @@ export default async function fetch() {
   let players = []
   
   while (true) {
-    const { data } = await axios.get(url + endpoint)
+    // Fetch requests go every second as to not flood the API.
+    const [res] = await Promise.all([axios.get(url + endpoint), timeout(1000)])
 
-    const cursor = data.cursor
-    const gameData = data.data
+    const cursor = res.data.cursor
+    const gameData = res.data.data
 
     // If history gameData came back, process it (checking players names and adding it).
     if (gameData) {
