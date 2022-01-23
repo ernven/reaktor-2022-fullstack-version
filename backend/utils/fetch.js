@@ -11,8 +11,8 @@ export default async function fetch() {
   let players = []
   
   while (true) {
-    // Fetch requests go every second as to not flood the API.
-    const [res] = await Promise.all([axios.get(url + endpoint), timeout(1000)])
+    // Fetch requests go every 2 seconds as to not flood the API.
+    const [res] = await Promise.all([axios.get(url + endpoint), timeout(2000)])
 
     const cursor = res.data.cursor
     const gameData = res.data.data
