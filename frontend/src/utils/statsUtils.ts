@@ -25,7 +25,7 @@ export const getPlayerStats = (player, data) => {
 
     } else if (data[i].second_name === player) {
       
-      const outcome = getOutcome(data[i].second_played, data[i].first_played)
+      const outcome = getGameOutcome(data[i].second_played, data[i].first_played)
 
       if (outcome === 1) { wins++ }
 
@@ -35,7 +35,7 @@ export const getPlayerStats = (player, data) => {
     }
   }
 
-  const mostPlayed = getMostFrequent(handsCount)
+  const mostPlayed = getMostFrequentHand(handsCount)
 
   // Win ratio rounded to 3 decimals.
   const winRatio = Math.round((wins / total) * 1000) / 1000
@@ -45,9 +45,8 @@ export const getPlayerStats = (player, data) => {
   return playerStats
 }
 
-// Helper function to calculate the outcome of a game.
 // Returns 1 if player A won, 2 if player B won or 0 if the game was tied.
-export const getOutcome = (handA, handB) => {
+export const getGameOutcome = (handA: string, handB: string) => {
   switch (handA) {
     case 'ROCK':
       if (handB === 'SCISSORS') {
@@ -78,8 +77,7 @@ export const getOutcome = (handA, handB) => {
   }
 }
 
-// Helper function to get the most frequent hand based on their count.
-const getMostFrequent = array => {
+const getMostFrequentHand = (array) => {
   const sorted = array.sort((a, b) => b.count - a.count)
 
   // Dealing with entries tied for top spot.

@@ -1,5 +1,5 @@
 // This reducer takes care of the data state for the application.
-export default function dataReducer (state, action) {
+export default function dataReducer (state, action): any {
   switch (action.type) {
 
     case 'GAME_BEGIN':
