@@ -1,10 +1,16 @@
 import { Typography } from '@mui/material'
 
-import { getOutcome } from '../../utils/statsUtils'
+import type { game } from '../../utils/types'
+import { getGameOutcome } from '../../utils/statsUtils'
 
-export default function Result({ game }) {
+interface propTypes {
+  key: string,
+  game: game
+}
 
-  const result = getOutcome(game.playerA.played, game.playerB.played)
+export default function Result({ game }: propTypes) {
+
+  const result = getGameOutcome(game.playerA.played, game.playerB.played)
 
   let textResult
 

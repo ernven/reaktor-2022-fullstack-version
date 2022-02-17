@@ -1,5 +1,17 @@
-// This reducer takes care of the data state for the application.
-export default function dataReducer (state, action): any {
+import type { game } from './utils/types'
+
+type gameState = {
+  ongoing: game[],
+  finished: game[],
+  gameIds: Set<string>
+}
+
+type action = {
+  type: string,
+  payload: game
+}
+
+export default function gameDataReducer (state: gameState, action: action): gameState {
   switch (action.type) {
 
     case 'GAME_BEGIN':

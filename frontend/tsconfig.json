@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-      "outDir": "./dist/",        // path to output directory
+      "rootDir": "src",
+      "outDir": "./build/",        // path to output directory
       "sourceMap": true,          // allow sourcemap support
+      "noImplicitReturns": true,
       "noImplicitAny": true,
       "noImplicitThis": true,
       "strictNullChecks": true,   // enable strict null checks as a best practice
@@ -15,5 +17,6 @@
   },
   "include": [
       "./src/"
-  ]
+  ],
+  "exclude": ["node_modules", "build"]
 }

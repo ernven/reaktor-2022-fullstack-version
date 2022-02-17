@@ -1,38 +1,38 @@
 import { useEffect, useReducer } from 'react'
 import { Typography } from '@mui/material'
 
-import dataReducer from '../../dataReducer'
+import type { game } from '../../utils/types'
+import gameDataReducer from '../../gameDataReducer'
 import Result from './Result'
 
+const wsUrl = process.env.REACT_APP_WS_URL || (() => {throw new Error('Cannot load WebSockets URL.')})()
+
 // Our initial state.
-const reducerInit = {ongoing: [], finished: [], gameIds: new Set()}
+const reducerInit = {ongoing: [], finished: [], gameIds: new Set<string>()}
 
 export default function RealTime() {
   // Our reducer holding the live data.
-  const [gamesData, dispatch] = useReducer(dataReducer, reducerInit)
+  const [gamesData, dispatch] = useReducer(gameDataReducer, reducerInit)
 
   const { ongoing, finished } = gamesData
 
   useEffect(() => {
-    const webSocket = new WebSocket(process.env.REACT_APP_WS_URL)
+    const webSocket = new WebSocket(wsUrl)
 
     webSocket.onmessage = e => {
       if (e.data) {
         // With websockets, the data has an unusual string format, so it takes 2 parses to become a regular object.
         const parsedData = JSON.parse(JSON.parse(e.data))
 
-        // Let's get the type straight from the source.
         const { type, ...data } = parsedData
 
-        // Once we have the data ready and in good form, dispatch the action to the reducer.
         dispatch({ type: type, payload: data})
       }
     }
   }, [dispatch])
 
-  // This function builds a list of matches for display.
-  const buildGameList = games => {
-    let list = []
+  const buildGameList = (games: game[]) => {
+    let list: JSX.Element[] = []
 
     if (games[0]) {
       if (games[0].playerA.played) {
@@ -46,6 +46,7 @@ export default function RealTime() {
         ))
       }
     }
+
     return list
   }
 
