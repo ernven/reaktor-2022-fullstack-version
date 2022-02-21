@@ -4,21 +4,19 @@ import { Typography } from '@mui/material'
 import DropdownMenu from './DropdownMenu'
 import PlayerCard from './PlayerCard/PlayerCard'
 
+import { player } from '../../utils/types'
+
 // This component (using the sub-components) should ask the user for a player and then show its details.
 export default function Historical() {
-
-  // A state holding the list of players for our dropdown menu to use.
   const [playerList, setPlayerList] = useState([])
-
-  // A state for our currently selected player.
-  const [selected, setSelected] = useState(null)
+  const [selectedPlayer, setSelectedPlayer] = useState(null)
 
   useEffect(() => {
     fetch('/players')
       .then(res => res.status === 200 ? res.json() : console.log('Error: ' + res.status))
       .then(data => {
         if (data) {
-          const playerNames = data.map(i => i.name)
+          const playerNames = data.map((i: player) => i.name)
           setPlayerList(playerNames)
         }
       })
@@ -31,9 +29,9 @@ export default function Historical() {
 
       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 
-        <DropdownMenu players={playerList} selected={selected} setSelected={setSelected} />
+        <DropdownMenu players={playerList} selected={selectedPlayer} setSelected={setSelectedPlayer} />
 
-        <PlayerCard player={selected} />
+        <PlayerCard player={selectedPlayer} />
 
       </div>
 

@@ -1,8 +1,15 @@
-import { useState, Fragment } from 'react'
+import { useState, Fragment, Dispatch, SetStateAction } from 'react'
 import { Autocomplete, TextField, CircularProgress } from '@mui/material'
 
-// This component will render a dropdown menu used to pick a player whose details will be shown.
-export default function DropdownMenu({ players, selected, setSelected }) {
+import { player } from '../../utils/types'
+
+interface propTypes {
+  players: player[],
+  selected: player | null,
+  setSelected: Dispatch<SetStateAction<player | null>>
+}
+
+export default function DropdownMenu({ players, selected, setSelected }: propTypes) {
   const [inputValue, setInputValue] = useState('')
 
   const loadingMenu = (
