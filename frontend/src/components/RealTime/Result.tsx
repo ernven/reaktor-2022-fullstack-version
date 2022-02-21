@@ -1,11 +1,11 @@
 import { Typography } from '@mui/material'
 
-import type { game } from '@utils/types'
+import type { gameRealTime } from '@utils/types'
 import { getGameOutcome } from '@utils/statsUtils'
 
 interface propTypes {
   key: string,
-  game: game
+  game: gameRealTime
 }
 
 export default function Result({ game }: propTypes) {

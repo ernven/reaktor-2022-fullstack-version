@@ -1,14 +1,14 @@
-import type { game } from '@utils/types'
+import type { gameRealTime } from '@utils/types'
 
 type gameState = {
-  ongoing: game[],
-  finished: game[],
+  ongoing: gameRealTime[],
+  finished: gameRealTime[],
   gameIds: Set<string>
 }
 
 type action = {
   type: string,
-  payload: game
+  payload: gameRealTime
 }
 
 export default function gameDataReducer (state: gameState, action: action): gameState {

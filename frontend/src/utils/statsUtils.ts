@@ -1,5 +1,6 @@
+import type { gameHistorical } from '@utils/types'
 
-export const getPlayerStats = (player, data) => {
+export const getPlayerStats = (player: string, data: gameHistorical[]) => {
 
   // Let's store here just the data we need now. We could have all the win, losses and ties, or even more stats.
   const total = data.length
@@ -13,15 +14,13 @@ export const getPlayerStats = (player, data) => {
     // Analyze the game if our selected player has been found.
     if (data[i].first_name === player) {
 
-      const outcome = getOutcome(data[i].first_played, data[i].second_played)
+      const outcome = getGameOutcome(data[i].first_played, data[i].second_played)
 
       // If outcome === 1, means the first player input (our found one) won the match.
       // At the moment we don't need losses nor ties.
       if (outcome === 1) { wins++ }
 
-      if (data[i].first_played === 'ROCK') { handsCount[0].count++ }
-      else if (data[i].first_played === 'PAPER') { handsCount[1].count++ }
-      else if (data[i].first_played === 'SCISSORS') { handsCount[2].count++ }
+      keepCount(data[i].first_played, handsCount)
 
     } else if (data[i].second_name === player) {
       
@@ -29,9 +28,7 @@ export const getPlayerStats = (player, data) => {
 
       if (outcome === 1) { wins++ }
 
-      if (data[i].second_played === 'ROCK') { handsCount[0].count++ }
-      else if (data[i].second_played === 'PAPER') { handsCount[1].count++ }
-      else if (data[i].second_played === 'SCISSORS') { handsCount[2].count++ }
+      keepCount(data[i].first_played, handsCount)
     }
   }
 
@@ -77,7 +74,18 @@ export const getGameOutcome = (handA: string, handB: string) => {
   }
 }
 
-const getMostFrequentHand = (array) => {
+interface choiceCount {
+  name: string,
+  count: number
+}
+
+const keepCount = (played: string, handsCount: choiceCount[]) => {
+  if (played === 'ROCK') { handsCount[0].count++ }
+  else if (played === 'PAPER') { handsCount[1].count++ }
+  else if (played === 'SCISSORS') { handsCount[2].count++ }
+}
+
+const getMostFrequentHand = (array: choiceCount[]) => {
   const sorted = array.sort((a, b) => b.count - a.count)
 
   // Dealing with entries tied for top spot.

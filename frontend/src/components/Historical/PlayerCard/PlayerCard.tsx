@@ -3,7 +3,7 @@ import { Card, CardContent, CardActions, Typography } from '@mui/material'
 
 import PlayerDataDialog from './PlayerDataDialog'
 import { getPlayerStats } from '@utils/statsUtils'
-import { game } from '@utils/types'
+import { gameHistorical } from '@utils/types'
 
 interface propTypes {
   player: string | null
@@ -11,7 +11,7 @@ interface propTypes {
 
 // This component will display a card with a selected player's details.
 export default function PlayerCard({ player }: propTypes) {
-  const [playerData, setPlayerData] = useState<game[] | null>(null)
+  const [playerData, setPlayerData] = useState<gameHistorical[] | null>(null)
 
   useEffect(() => {
     if (player) {

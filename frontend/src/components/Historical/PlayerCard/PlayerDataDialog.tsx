@@ -6,10 +6,10 @@ import { useTheme } from '@mui/material/styles'
 
 import PlayerDataTable from './PlayerDataTable'
 
-import { game } from '@utils/types'
+import { gameHistorical } from '@utils/types'
 
 interface propTypes {
-  playerData: game[]
+  playerData: gameHistorical[]
 }
 
 /*
