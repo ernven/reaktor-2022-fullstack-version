@@ -6,7 +6,7 @@ import { useTheme } from '@mui/material/styles'
 
 import PlayerDataTable from './PlayerDataTable'
 
-import { game } from '../../../utils/types'
+import { game } from '@utils/types'
 
 interface propTypes {
   playerData: game[]

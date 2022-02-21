@@ -4,12 +4,12 @@ import { Typography } from '@mui/material'
 import DropdownMenu from './DropdownMenu'
 import PlayerCard from './PlayerCard/PlayerCard'
 
-import { player } from '../../utils/types'
+import type { player } from '@utils/types'
 
 // This component (using the sub-components) should ask the user for a player and then show its details.
 export default function Historical() {
-  const [playerList, setPlayerList] = useState([])
-  const [selectedPlayer, setSelectedPlayer] = useState(null)
+  const [playerList, setPlayerList] = useState<string[]>([])
+  const [selectedPlayer, setSelectedPlayer] = useState<string | null>(null)
 
   useEffect(() => {
     fetch('/players')

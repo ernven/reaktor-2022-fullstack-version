@@ -5,7 +5,7 @@ import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-mod
 import '@ag-grid-community/core/dist/styles/ag-grid.css'
 import '@ag-grid-community/core/dist/styles/ag-theme-material.css'
 
-import { game } from '../../../utils/types'
+import { game } from '@utils/types'
 
 interface propTypes {
   data: game[]

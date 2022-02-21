@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 
-import type { game } from '../../utils/types'
-import { getGameOutcome } from '../../utils/statsUtils'
+import type { game } from '@utils/types'
+import { getGameOutcome } from '@utils/statsUtils'
 
 interface propTypes {
   key: string,

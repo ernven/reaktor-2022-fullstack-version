@@ -1,12 +1,10 @@
 import { useState, Fragment, Dispatch, SetStateAction } from 'react'
 import { Autocomplete, TextField, CircularProgress } from '@mui/material'
 
-import { player } from '../../utils/types'
-
 interface propTypes {
-  players: player[],
-  selected: player | null,
-  setSelected: Dispatch<SetStateAction<player | null>>
+  players: string[],
+  selected: string | null,
+  setSelected: Dispatch<SetStateAction<string | null>>
 }
 
 export default function DropdownMenu({ players, selected, setSelected }: propTypes) {

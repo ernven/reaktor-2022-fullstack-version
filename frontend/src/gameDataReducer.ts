@@ -1,4 +1,4 @@
-import type { game } from './utils/types'
+import type { game } from '@utils/types'
 
 type gameState = {
   ongoing: game[],

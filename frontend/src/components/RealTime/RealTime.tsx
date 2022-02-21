@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from 'react'
 import { Typography } from '@mui/material'
 
-import type { game } from '../../utils/types'
+import type { game } from '@utils/types'
 import gameDataReducer from '../../gameDataReducer'
 import Result from './Result'
 
