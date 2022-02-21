@@ -7,11 +7,9 @@ import Result from './Result'
 
 const wsUrl = process.env.REACT_APP_WS_URL || (() => {throw new Error('Cannot load WebSockets URL.')})()
 
-// Our initial state.
 const reducerInit = {ongoing: [], finished: [], gameIds: new Set<string>()}
 
 export default function RealTime() {
-  // Our reducer holding the live data.
   const [gamesData, dispatch] = useReducer(gameDataReducer, reducerInit)
 
   const { ongoing, finished } = gamesData
@@ -35,16 +33,14 @@ export default function RealTime() {
     let list: JSX.Element[] = []
 
     if (games[0]) {
-      if (games[0].playerA.played) {
+      games[0].playerA.played ?
         games.forEach(game => list.push(<Result key={game.gameId} game={game}/>))
-      }
-      else {
+      :
         games.forEach(game => list.push(
           <Typography key={game.gameId} sx={{marginBottom: '0.5em'}}>
             {game.playerA.name} vs. {game.playerB.name}
           </Typography>
         ))
-      }
     }
 
     return list
