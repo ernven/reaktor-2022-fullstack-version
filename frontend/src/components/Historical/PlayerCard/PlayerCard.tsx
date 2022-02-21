@@ -4,9 +4,11 @@ import { Card, CardContent, CardActions, Typography } from '@mui/material'
 import PlayerDataDialog from './PlayerDataDialog'
 import { getPlayerStats } from '../../../utils/statsUtils'
 
+import { player, game } from '../../../utils/types'
+
 // This component will display a card with a selected player's details.
-export default function PlayerCard({ player }) {
-  const [playerData, setPlayerData] = useState(null)
+export default function PlayerCard(player: player) {
+  const [playerData, setPlayerData] = useState<game[] | null>(null)
 
   useEffect(() => {
     if (player) {

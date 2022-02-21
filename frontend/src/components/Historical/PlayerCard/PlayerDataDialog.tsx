@@ -6,11 +6,17 @@ import { useTheme } from '@mui/material/styles'
 
 import PlayerDataTable from './PlayerDataTable'
 
+import { game } from '../../../utils/types'
+
+interface propTypes {
+  playerData: game[]
+}
+
 /*
 When the button is clicked and open set to "true", this component will display the player's full history.
 It will be a pop-up on desktop and should be responsive on mobile.
 */
-export default function PlayerDataList({ playerData }) {
+export default function PlayerDataList({ playerData }: propTypes) {
   const [open, setOpen] = useState(false)
   
   // These are used to make the dialog box responsive.
@@ -27,7 +33,7 @@ export default function PlayerDataList({ playerData }) {
         open={open}
         onClose={()=>setOpen(false)}
         fullScreen={fullScreen}
-        maxWidth='1400'
+        maxWidth='lg'
       >
         <div style={{display: 'inherit'}}>
           <DialogTitle sx={{marginLeft: '35%'}}>Games History</DialogTitle>

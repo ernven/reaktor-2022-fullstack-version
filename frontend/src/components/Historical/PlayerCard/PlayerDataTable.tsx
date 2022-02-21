@@ -5,12 +5,18 @@ import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-mod
 import '@ag-grid-community/core/dist/styles/ag-grid.css'
 import '@ag-grid-community/core/dist/styles/ag-theme-material.css'
 
+import { game } from '../../../utils/types'
+
+interface propTypes {
+  data: game[]
+}
+
 /*
 This component renders a table with the whole games history of a player.
 Currently, only the date is modified (formatted), parsed from the timestamp then to string using Locale.
 In the future, it could also display games' outcomes, etc.
 */
-export default function PlayerDataTable({ data }) {
+export default function PlayerDataTable({ data }: propTypes) {
 
   // Defining the data and columns, memoized to prevent unnecessary updates.
   const tableData = useMemo(() => data, [data])
@@ -19,7 +25,7 @@ export default function PlayerDataTable({ data }) {
     {
       headerName: 'Date',
       field: 'date',
-      valueFormatter: row => (new Date(row.value)).toLocaleString(),
+      valueFormatter: (row: {value: string}) => (new Date(row.value)).toLocaleString(),
       filter: 'agDateColumnFilter',
       filterParams: {defaultOption: 'inRange'},
       flex: 1.5,
@@ -59,7 +65,7 @@ export default function PlayerDataTable({ data }) {
   <div style={{height: '80vh', width: '78vw'}}>
     <AgGridReact
       className='ag-theme-material'
-      animateRows='true'
+      animateRows={true}
       modules={modules}
       columnDefs={columnDefs}
       defaultColDef={defaultColDef}
