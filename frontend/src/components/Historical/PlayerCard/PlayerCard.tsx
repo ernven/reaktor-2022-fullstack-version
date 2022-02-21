@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardActions, Typography } from '@mui/material'
 
 import PlayerDataDialog from './PlayerDataDialog'
-import { getPlayerStats } from '@utils/statsUtils'
-import { gameHistorical } from '@utils/types'
+import { getPlayerStats } from '../../../utils/statsUtils'
+import type { gameHistorical } from '../../../utils/types'
 
 interface propTypes {
   player: string | null

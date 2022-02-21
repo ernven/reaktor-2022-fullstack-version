@@ -1,4 +1,4 @@
-import type { gameRealTime } from '@utils/types'
+import type { gameRealTime } from './utils/types'
 
 type gameState = {
   ongoing: gameRealTime[],

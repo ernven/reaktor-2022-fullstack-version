@@ -2,9 +2,6 @@
   "compilerOptions": {
       "rootDir": "./src",
       "outDir": "./build/",       // path to output directory
-      "paths": {                  // path aliases
-        "@utils/*": ["./src/utils/*"]
-      },
       "sourceMap": true,          // allow sourcemap support
       "noImplicitReturns": true,
       "noImplicitAny": true,

@@ -1,22 +1,20 @@
-import type { gameHistorical } from '@utils/types'
+import type { gameHistorical } from './types'
 
 export const getPlayerStats = (player: string, data: gameHistorical[]) => {
 
-  // Let's store here just the data we need now. We could have all the win, losses and ties, or even more stats.
-  const total = data.length
+  const numberOfGames = data.length
 
   let wins = 0
 
   // Saving the counts of what has been played to an array.
   let handsCount = [{name: 'Rock', count: 0}, {name: 'Paper', count: 0}, {name: 'Scissors', count: 0}]
 
-  for (let i = 0; i < total; i++) {
+  for (let i = 0; i < numberOfGames; i++) {
     // Analyze the game if our selected player has been found.
     if (data[i].first_name === player) {
 
       const outcome = getGameOutcome(data[i].first_played, data[i].second_played)
 
-      // If outcome === 1, means the first player input (our found one) won the match.
       // At the moment we don't need losses nor ties.
       if (outcome === 1) { wins++ }
 
@@ -28,18 +26,15 @@ export const getPlayerStats = (player: string, data: gameHistorical[]) => {
 
       if (outcome === 1) { wins++ }
 
-      keepCount(data[i].first_played, handsCount)
+      keepCount(data[i].second_played, handsCount)
     }
   }
 
   const mostPlayed = getMostFrequentHand(handsCount)
 
-  // Win ratio rounded to 3 decimals.
-  const winRatio = Math.round((wins / total) * 1000) / 1000
+  const winRatio = Math.round((wins / numberOfGames) * 1000) / 1000
 
-  const playerStats = {gameCount: total, winRatio: winRatio, mostPlayed: mostPlayed}
-
-  return playerStats
+  return {gameCount: numberOfGames, winRatio: winRatio, mostPlayed: mostPlayed}
 }
 
 // Returns 1 if player A won, 2 if player B won or 0 if the game was tied.
@@ -74,7 +69,7 @@ export const getGameOutcome = (handA: string, handB: string) => {
   }
 }
 
-interface choiceCount {
+type choiceCount = {
   name: string,
   count: number
 }

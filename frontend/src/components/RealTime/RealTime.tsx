@@ -1,9 +1,9 @@
 import { useEffect, useReducer } from 'react'
 import { Typography } from '@mui/material'
 
-import type { game } from '@utils/types'
 import gameDataReducer from '../../gameDataReducer'
 import Result from './Result'
+import type { gameRealTime } from '../../utils/types'
 
 const wsUrl = process.env.REACT_APP_WS_URL || (() => {throw new Error('Cannot load WebSockets URL.')})()
 
@@ -29,7 +29,7 @@ export default function RealTime() {
     }
   }, [dispatch])
 
-  const buildGameList = (games: game[]) => {
+  const buildGameList = (games: gameRealTime[]) => {
     let list: JSX.Element[] = []
 
     if (games[0]) {
