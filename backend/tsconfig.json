@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./build",
+    "allowJs": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "module": "Node12",
+    "esModuleInterop": true,
+    "target": "es6",
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "build"]
+}
