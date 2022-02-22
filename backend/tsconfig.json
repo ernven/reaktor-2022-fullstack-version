@@ -10,10 +10,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "noPropertyAccessFromIndexSignature": true,
 
     "lib": ["es2021"],
     "module": "es2022",
+    "moduleResolution": "node",
     "target": "es2021",
     "esModuleInterop": true
   },
