@@ -4,8 +4,9 @@
   "description": "Backend for Reaktor 2022 project",
   "main": "index.js",
   "type": "module",
+  "exports": "./dist/index.js",
   "scripts": {
-    "start": "nodemon -r dotenv/config index.js",
+    "start": "nodemon -r dotenv/config --watch './**/*.ts' --exec 'node --loader ts-node/esm' index.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

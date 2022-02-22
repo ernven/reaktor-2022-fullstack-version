@@ -12,6 +12,21 @@ import insertUtil from './utils/insertUtil.js'
 
 const app = express()
 
+app.use('/games', games)
+app.use('/players', players)
+
+// Used in DEPLOYMENT for loading the static (frontend) files.
+if(process.env.NODE_ENV === 'production') {
+  const __dirname = path.resolve()
+  app.use(express.static(path.join(__dirname, 'build')))
+  app.get('/*', (_, res) => { res.sendFile(path.join(__dirname, 'build', 'index.html')) })  
+}
+
+app.listen(appConfig.port, () => {
+  console.log(`Server running on port ${appConfig.port}`)
+  fetchGamesHistory()
+})
+
 // Using websockets to stay up to date.
 const webSocket = new WebSocket(process.env.BAD_WS_URL || '')
 
@@ -37,20 +52,6 @@ webSocket.onmessage = e => {
 
       insertUtil('players', [{name: data.playerA.name}, {name: data.playerB.name}], 'name')
     }
+    console.log(parsedData)
   }
 }
-
-app.use('/games', games)
-app.use('/players', players)
-
-// Used in DEPLOYMENT for loading the static (frontend) files.
-if(process.env.NODE_ENV === 'production') {
-  const __dirname = path.resolve()
-  app.use(express.static(path.join(__dirname, 'build')))
-  app.get('/*', (_, res) => { res.sendFile(path.join(__dirname, 'build', 'index.html')) })  
-}
-
-app.listen(appConfig.port, () => {
-  console.log(`Server running on port ${appConfig.port}`)
-  fetchGamesHistory()
-})
