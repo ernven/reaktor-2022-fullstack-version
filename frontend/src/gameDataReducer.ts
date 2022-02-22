@@ -35,22 +35,20 @@ export default function gameDataReducer (state: gameState, action: action): game
 
 const analyzeGameResult = (state: gameState, game: gameRealTime) => {
   const ongoingGames = state.ongoing
-  let finishedGames = state.finished
+  const finishedGames = state.finished
 
   // Remove the finished game from ongoing matches.
   ongoingGames.forEach((entry, index) => {
     if (entry.gameId === game.gameId) { ongoingGames.splice(index, 1) }
   })
   
-  // Then add the finished game to the list of last results (5 entries max). Double check to avoid adding repeats.
-  //if (!(finishedGames.some(e => e.gameId === game.gameId))) {
+  // Then add the finished game to the list of last results.
+  if (!(finishedGames.some(e => e.gameId === game.gameId))) {
 
-    if (finishedGames.length === 5) {
-      finishedGames.splice(0,1)
-    }
+    if (finishedGames.length === 5) { finishedGames.splice(0,1) }
 
     finishedGames.push(game)
-  //}
+  }
 
   if (!state.gameIds.has(game.gameId)) {
     const newGameIds = state.gameIds.add(game.gameId)

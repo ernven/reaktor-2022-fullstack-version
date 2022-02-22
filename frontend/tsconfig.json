@@ -1,21 +1,22 @@
 {
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./build/",       // path to output directory
-    "sourceMap": true,          // allow sourcemap support
+    "outDir": "./build/",               // path to output directory
+    "sourceMap": true,                  // allow sourcemap support
 
     "noImplicitReturns": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": true,   // enable strict null checks as a best practice
+    "strictNullChecks": true,           // enable strict null checks as a best practice
     "noFallthroughCasesInSwitch": true,
-    //"strict":true             // enables all strict options
+    //"strict":true                     // enables all strict options
 
     "lib": ["dom", "dom.iterable", "es2020"],
-    "module": "es2020",         // specify module code generation
-    "jsx": "react-jsx",         // use typescript to transpile jsx to js
-    "target": "es6",            // specify ECMAScript target version
-    "allowJs": true,            // allow a partial TypeScript and JavaScript codebase
+    "module": "es2020",                 // specify module code generation
+    "moduleResolution": "Node",
+    "jsx": "react-jsx",                 // use typescript to transpile jsx to js
+    "target": "es6",                    // specify ECMAScript target version
+    "allowJs": true,                    // allow a partial TypeScript and JavaScript codebase
     "isolatedModules": true,
     "noEmit": true
   },
