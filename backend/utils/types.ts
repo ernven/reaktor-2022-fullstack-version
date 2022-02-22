@@ -1,4 +1,16 @@
-export type game = {
+type playerBadAPI = {
+  name: string,
+  played: string
+}
+
+export type gameBadAPI = {
+  gameId: string,
+  t: number,
+  playerA: playerBadAPI,
+  playerB: playerBadAPI
+}
+
+export type gameDB = {
   id: string,
   date: Date,
   first_name: string,

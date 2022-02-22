@@ -1,15 +1,14 @@
 import axios from 'axios'
 
 import insertUtil from './insertUtil.js'
-import type { player } from './types.js'
+import type { gameBadAPI, gameDB } from './types.js'
 
 const timeout = (time: number) => new Promise(resolve => setTimeout(resolve, time))
 
-// Function for fetching gameData from the bad API.
 export default async function fetch() {
   const url = process.env.BAD_API_URL
   let endpoint = '/rps/history'
-  let players: player[] = []
+  const playerList: string[] = []
   
   while (true) {
     // Fetch requests go every 2 seconds as to not flood the API.
@@ -18,42 +17,47 @@ export default async function fetch() {
     const cursor = res.data.cursor
     const gameData = res.data.data
 
-    // If history gameData came back, process it (checking players names and adding it).
+    let newPlayers: string[] = []
+
     if (gameData) {
-      let newPlayers = []
-
-      // Update the games history gameData.
-      for (let i = 0; i < gameData.length; i++) {
-
-        if (!players.includes(gameData[i].playerA.name)) { newPlayers.push(gameData[i].playerA.name) }
-        if (!players.includes(gameData[i].playerB.name)) { newPlayers.push(gameData[i].playerB.name) }
-
-        gameData[i] = {
-          id: gameData[i].gameId,
-          date: new Date(gameData[i].t),
-          first_name: gameData[i].playerA.name,
-          first_played: gameData[i].playerA.played,
-          second_name: gameData[i].playerB.name,
-          second_played: gameData[i].playerB.played,
-        }
-      }
-      insertUtil('games', gameData, 'id')
-
-      // Update the player list if needed.
-      if (newPlayers !== []) {
-
-        players.concat(newPlayers)
-
-        for (let i = 0; i < newPlayers.length; i++) {
-          newPlayers[i] = {name: newPlayers[i]}
-        }
-
-        insertUtil('players', newPlayers, 'name')
-      }
+      updateGamesHistory(gameData, playerList, newPlayers)
     }
 
-    // Set the next url for continue fetching
+    if (newPlayers !== []) {
+      updatePlayerList(playerList, newPlayers)
+    }
+
     if (cursor) { endpoint = cursor}
     else { break }
   }
+}
+
+function updateGamesHistory(gameData: gameBadAPI[], players: string[], newPlayers: string[]) {
+
+  const dataToAdd: gameDB[] = []
+
+  gameData.forEach(entry => {
+    if (!players.includes(entry.playerA.name)) { newPlayers.push(entry.playerA.name) }
+    if (!players.includes(entry.playerB.name)) { newPlayers.push(entry.playerB.name) }
+
+    dataToAdd.push({
+      id: entry.gameId,
+      date: new Date(entry.t),
+      first_name: entry.playerA.name,
+      first_played: entry.playerA.played,
+      second_name: entry.playerB.name,
+      second_played: entry.playerB.played,
+    })
+  })
+
+  insertUtil('games', dataToAdd, 'id')
+}
+
+function updatePlayerList(players: string[], newPlayers: string[]) {
+
+  players.concat(newPlayers)
+
+  const playersToAdd = newPlayers.map(playerName => ({name: playerName}))
+
+  insertUtil('players', playersToAdd, 'name')
 }

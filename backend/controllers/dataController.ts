@@ -13,10 +13,8 @@ interface customReq extends Request {
 
 export function listData(request: customReq, response: Response) {
   
-  let listQuery = query('games')
-
-  listQuery
-    .select('id', 'date', 'first_name', 'first_played', 'second_name', 'second_played')
+  let listQuery =
+    query('games').select('id', 'date', 'first_name', 'first_played', 'second_name', 'second_played')
 
   if (request.query.name) {
     listQuery.where('first_name', request.query.name).orWhere('second_name', request.query.name)
