@@ -11,11 +11,7 @@ interface propTypes {
   data: gameHistorical[]
 }
 
-/*
-This component renders a table with the whole games history of a player.
-Currently, only the date is modified (formatted), parsed from the timestamp then to string using Locale.
-In the future, it could also display games' outcomes, etc.
-*/
+// In the future, here could also be displayed games' outcomes, etc.
 export default function PlayerDataTable({ data }: propTypes) {
 
   // Defining the data and columns, memoized to prevent unnecessary updates.

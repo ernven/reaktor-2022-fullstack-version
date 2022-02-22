@@ -12,10 +12,6 @@ interface propTypes {
   playerData: gameHistorical[]
 }
 
-/*
-When the button is clicked and open set to "true", this component will display the player's full history.
-It will be a pop-up on desktop and should be responsive on mobile.
-*/
 export default function PlayerDataList({ playerData }: propTypes) {
   const [open, setOpen] = useState(false)
   

@@ -9,7 +9,6 @@ interface propTypes {
   player: string | null
 }
 
-// This component will display a card with a selected player's details.
 export default function PlayerCard({ player }: propTypes) {
   const [playerData, setPlayerData] = useState<gameHistorical[] | null>(null)
 
