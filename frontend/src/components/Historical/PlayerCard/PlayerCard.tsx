@@ -14,7 +14,7 @@ export default function PlayerCard({ player }: propTypes) {
 
   useEffect(() => {
     if (player) {
-      fetch('/data?name=' + player)
+      fetch('/games?player=' + player)
         .then(res => res.status === 200 ? res.json() : console.log('Error: ' + res.status))
         .then(data => setPlayerData(data))
         .catch(err => console.log(err))

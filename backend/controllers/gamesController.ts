@@ -7,7 +7,7 @@ const query = knex(dbConfig)
 
 interface customReq extends Request {
   query: {
-    name: string
+    player: string
   }
 }
 
@@ -16,8 +16,8 @@ export function listGamesHistory(request: customReq, response: Response) {
   let listQuery =
     query('games').select('id', 'date', 'first_name', 'first_played', 'second_name', 'second_played')
 
-  if (request.query.name) {
-    listQuery.where('first_name', request.query.name).orWhere('second_name', request.query.name)
+  if (request.query.player) {
+    listQuery.where('first_name', request.query.player).orWhere('second_name', request.query.player)
   }
   
   listQuery
