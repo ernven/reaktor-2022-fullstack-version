@@ -52,6 +52,5 @@ webSocket.onmessage = e => {
 
       insertUtil('players', [{name: data.playerA.name}, {name: data.playerB.name}], 'name')
     }
-    console.log(parsedData)
   }
 }
