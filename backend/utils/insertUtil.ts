@@ -1,10 +1,10 @@
 import knex from 'knex'
 
 import { dbConfig } from '../config/config.js'
+import type { game, player } from './types.js'
 
 const query = knex(dbConfig)
 
-// Fn for inserting data into the DB.
-export default function(tableName, data, column) {
+export default function(tableName: string, data: game | player[], column: string) {
   query(tableName).insert(data).onConflict(column).ignore()
 }

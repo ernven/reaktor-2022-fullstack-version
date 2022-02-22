@@ -1,11 +1,11 @@
+import type { Response } from 'express'
 import knex from 'knex'
 
 import { dbConfig } from '../config/config.js'
 
-// Initializing knex for building queries with our config.
 const query = knex(dbConfig)
 
-export function listPlayers(_, response) {
+export function listPlayers(_request: any, response: Response) {
   query('players')
     .select('name')
     .orderBy('name')

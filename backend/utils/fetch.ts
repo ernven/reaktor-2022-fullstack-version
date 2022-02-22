@@ -1,14 +1,15 @@
 import axios from 'axios'
 
 import insertUtil from './insertUtil.js'
+import type { player } from './types.js'
 
-const timeout = time => new Promise(resolve => setTimeout(resolve, time))
+const timeout = (time: number) => new Promise(resolve => setTimeout(resolve, time))
 
 // Function for fetching gameData from the bad API.
 export default async function fetch() {
   const url = process.env.BAD_API_URL
   let endpoint = '/rps/history'
-  let players = []
+  let players: player[] = []
   
   while (true) {
     // Fetch requests go every 2 seconds as to not flood the API.
@@ -24,7 +25,6 @@ export default async function fetch() {
       // Update the games history gameData.
       for (let i = 0; i < gameData.length; i++) {
 
-      // We can also keep track of the players so we can use it later.
         if (!players.includes(gameData[i].playerA.name)) { newPlayers.push(gameData[i].playerA.name) }
         if (!players.includes(gameData[i].playerB.name)) { newPlayers.push(gameData[i].playerB.name) }
 
