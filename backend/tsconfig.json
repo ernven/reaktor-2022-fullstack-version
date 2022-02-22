@@ -1,13 +1,21 @@
 {
   "compilerOptions": {
-    "rootDir": "./src",
+    "rootDir": "./",
     "outDir": "./build",
+
     "allowJs": true,
     "strict": true,
-    "module": "Node12",
-    "esModuleInterop": true,
-    "target": "es6",
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    "lib": ["es2021"],
+    "module": "es2022",
+    "target": "es2021",
+    "esModuleInterop": true
   },
-  "include": ["./src/**/*"],
   "exclude": ["node_modules", "build"]
 }
