@@ -12,54 +12,51 @@ type action = {
 }
 
 export default function gameDataReducer (state: gameState, action: action): gameState {
-  switch (action.type) {
+  const { type, payload } = action
+
+  switch (type) {
 
     case 'GAME_BEGIN':
-      let liveGames = state.ongoing
+      const liveGames = state.ongoing
 
       // Double check to avoid adding repeats.
-      if (!(liveGames.some(e => e.gameId === action.payload.gameId))) {
-        liveGames.push(action.payload)
+      if (!(liveGames.some(e => e.gameId === payload.gameId))) {
+        liveGames.push(payload)
       }
       return {...state, ongoing: liveGames}
 
     case 'GAME_RESULT':
-      let ongoingGames = state.ongoing
-      let finishedGames = state.finished
-
-      // First, remove the finished game from ongoing matches.
-      for (let i = 0; i < ongoingGames.length; i++) {
-        if (ongoingGames[i].gameId === action.payload.gameId) {
-          ongoingGames.splice(i, 1)
-        }
-      }
-      
-      // Then add the finished game to the list of last results (double check to avoid adding repeats).
-      // Note: To prevent the list from growing too large, we can set a max 5 entries for the finished games.
-      if (!(finishedGames.some(e => e.gameId === action.payload.gameId))) {
-        if (finishedGames.length < 5) {
-          finishedGames.push(action.payload)
-        } else {
-          for (let i = finishedGames.length; i > 0; i--) {
-            finishedGames[i-1] = i === 1 ? action.payload : finishedGames[i-2]
-          }
-        }
-      }
-      
-      let newGameIds = state.gameIds
-
-      // To avoid duplicates, double check first!
-      if (!state.gameIds.has(action.payload.gameId)) {
-        newGameIds.add(action.payload.gameId)
-      }
-      
-      return {
-        ongoing: ongoingGames,
-        finished: finishedGames,
-        gameIds: newGameIds
-      }
+      return analyzeGameResult(state, payload)
 
     default:
       return state
   }
+}
+
+const analyzeGameResult = (state: gameState, game: gameRealTime) => {
+  const ongoingGames = state.ongoing
+  let finishedGames = state.finished
+
+  // Remove the finished game from ongoing matches.
+  ongoingGames.forEach((entry, index) => {
+    if (entry.gameId === game.gameId) { ongoingGames.splice(index, 1) }
+  })
+  
+  // Then add the finished game to the list of last results (5 entries max). Double check to avoid adding repeats.
+  //if (!(finishedGames.some(e => e.gameId === game.gameId))) {
+
+    if (finishedGames.length === 5) {
+      finishedGames.splice(0,1)
+    }
+
+    finishedGames.push(game)
+  //}
+
+  if (!state.gameIds.has(game.gameId)) {
+    const newGameIds = state.gameIds.add(game.gameId)
+
+    return { ongoing: ongoingGames, finished: finishedGames, gameIds: newGameIds }
+  }
+    
+  return { ...state, ongoing: ongoingGames, finished: finishedGames }
 }
