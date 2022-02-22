@@ -1,40 +1,55 @@
 import type { gameHistorical } from './types'
 
+type hand = {
+  name: string,
+  count: number
+}
+
+type choiceCount = {
+  name: string,
+  count: number
+}
+
 export const getPlayerStats = (player: string, data: gameHistorical[]) => {
 
   const numberOfGames = data.length
 
   let wins = 0
 
-  // Saving the counts of what has been played to an array.
-  let handsCount = [{name: 'Rock', count: 0}, {name: 'Paper', count: 0}, {name: 'Scissors', count: 0}]
+  const handsCount = [{name: 'Rock', count: 0}, {name: 'Paper', count: 0}, {name: 'Scissors', count: 0}]
 
-  for (let i = 0; i < numberOfGames; i++) {
-    // Analyze the game if our selected player has been found.
-    if (data[i].first_name === player) {
+  data.forEach(entry => {
 
-      const outcome = getGameOutcome(data[i].first_played, data[i].second_played)
+    const outcome = analyzeGame(entry, player, handsCount)
 
-      // At the moment we don't need losses nor ties.
-      if (outcome === 1) { wins++ }
+    if (outcome === 1) { wins++ }
 
-      keepCount(data[i].first_played, handsCount)
-
-    } else if (data[i].second_name === player) {
-      
-      const outcome = getGameOutcome(data[i].second_played, data[i].first_played)
-
-      if (outcome === 1) { wins++ }
-
-      keepCount(data[i].second_played, handsCount)
-    }
-  }
+  })
 
   const mostPlayed = getMostFrequentHand(handsCount)
 
   const winRatio = Math.round((wins / numberOfGames) * 1000) / 1000
 
   return {gameCount: numberOfGames, winRatio: winRatio, mostPlayed: mostPlayed}
+}
+
+const analyzeGame = (game: gameHistorical, player: string, handsCount: hand[]) => {
+  let outcome = -1
+
+  if (game.first_name === player) {
+
+    outcome = getGameOutcome(game.first_played, game.second_played)
+
+    keepCount(game.first_played, handsCount)
+
+  } else if (game.second_name === player) {
+    
+    outcome = getGameOutcome(game.second_played, game.first_played)
+
+    keepCount(game.second_played, handsCount)
+  }
+
+  return outcome
 }
 
 // Returns 1 if player A won, 2 if player B won or 0 if the game was tied.
@@ -65,13 +80,8 @@ export const getGameOutcome = (handA: string, handB: string) => {
         return 0
       }
     default:
-      return null
+      return -1
   }
-}
-
-type choiceCount = {
-  name: string,
-  count: number
 }
 
 const keepCount = (played: string, handsCount: choiceCount[]) => {
