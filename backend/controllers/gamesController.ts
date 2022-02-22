@@ -11,7 +11,7 @@ interface customReq extends Request {
   }
 }
 
-export function listData(request: customReq, response: Response) {
+export function listGamesHistory(request: customReq, response: Response) {
   
   let listQuery =
     query('games').select('id', 'date', 'first_name', 'first_played', 'second_name', 'second_played')

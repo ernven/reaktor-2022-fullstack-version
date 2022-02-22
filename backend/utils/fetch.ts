@@ -5,7 +5,7 @@ import type { gameBadAPI, gameDB } from './types.js'
 
 const timeout = (time: number) => new Promise(resolve => setTimeout(resolve, time))
 
-export default async function fetch() {
+export default async function fetchGamesHistory() {
   const url = process.env.BAD_API_URL
   let endpoint = '/rps/history'
   const playerList: string[] = []

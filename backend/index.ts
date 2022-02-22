@@ -3,11 +3,11 @@ import WebSocket from 'ws'
 // In DEPLOYMENT, we need to import the path module.
 import * as path from 'path'
 
-import data from './routes/data.js'
+import games from './routes/games.js'
 import players from './routes/players.js'
 
 import { appConfig } from './config/config.js'
-import fetch from './utils/fetch.js'
+import fetchGamesHistory from './utils/fetch.js'
 import insertUtil from './utils/insertUtil.js'
 
 const app = express()
@@ -40,7 +40,7 @@ webSocket.onmessage = e => {
   }
 }
 
-app.use('/data', data)
+app.use('/games', games)
 app.use('/players', players)
 
 // Used in DEPLOYMENT for loading the static (frontend) files.
@@ -52,5 +52,5 @@ if(process.env.NODE_ENV === 'production') {
 
 app.listen(appConfig.port, () => {
   console.log(`Server running on port ${appConfig.port}`)
-  fetch()
+  fetchGamesHistory()
 })
