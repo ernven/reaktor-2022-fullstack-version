@@ -50,7 +50,7 @@ I decided to also implement a backend for it because even after all the possible
 
 This solution then takes the historical data from the bad-api into the backend and stores into a PostgreSQL database (hosted on Azure). The backend also takes updates from the websockets messages and updates the DB accordingly. This way, the frontend app only needs to query for the data it needs, basically all data for a single player at a time (and on top of this, it is only done on-demand).
 
-This new backend contains two endpoints as well. `players` returns a list of players, which can be used by the frontend app to populate the dropdown menu. `data` returns the historical data **but** also allows to filter the results by a player's name.
+This new backend contains two endpoints as well. `players` returns a list of players, which can be used by the frontend app to populate the dropdown menu. `games` returns the historical data **but** also allows to filter the results by a player's name using the query parameter "player".
 These two were set up to meet the requirements of the application, but others could be created too, if we would want to perform some calculations on the backend side, for example. Stats are calculated on the frontend at the moment, but that doesn't seem to affect performance nor UX (it didn't even with the "bad" backend).
 
 As mentioned already, I did not have too much time to do this (the backend and deployment were done in one afternoon), so the UI is functional but basic. It could definitely be improved, as well as extra features added.
