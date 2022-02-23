@@ -9,6 +9,7 @@ import players from './routes/players.js'
 import { appConfig } from './config/config.js'
 import fetchGamesHistory from './utils/fetch.js'
 import insertUtil from './utils/insertUtil.js'
+import type { wsMessage } from './utils/types.js'
 
 const app = express()
 
@@ -35,22 +36,26 @@ webSocket.onmessage = e => {
     // With websockets, the data has an unusual string format, so it takes 2 parses to become a regular object.
     const parsedData = JSON.parse(JSON.parse(e.data.toString()))
 
-    const { type, ...data } = parsedData
+    handleWebsocketsData(parsedData)
+  }
+}
 
-    if (type === 'GAME_RESULT') {
+function handleWebsocketsData(message: wsMessage) {
+  const { type, ...data } = message
 
-      const gameEntry = {
-        id: data.gameId,
-        date: new Date(data.t),
-        first_name: data.playerA.name,
-        first_played: data.playerA.played,
-        second_name: data.playerB.name,
-        second_played: data.playerB.played,
-      }
+  if (type === 'GAME_RESULT') {
 
-      insertUtil('games', gameEntry, 'id')
-
-      insertUtil('players', [{name: data.playerA.name}, {name: data.playerB.name}], 'name')
+    const gameEntry = {
+      id: data.gameId,
+      date: new Date(data.t),
+      first_name: data.playerA.name,
+      first_played: data.playerA.played || '',
+      second_name: data.playerB.name,
+      second_played: data.playerB.played || '',
     }
+
+    insertUtil('games', gameEntry, 'id')
+
+    insertUtil('players', [{name: data.playerA.name}, {name: data.playerB.name}], 'name')
   }
 }

@@ -1,6 +1,6 @@
 type playerBadAPI = {
   name: string,
-  played: string
+  played?: string
 }
 
 export type gameBadAPI = {
@@ -22,3 +22,5 @@ export type gameDB = {
 export type player = {
   name: string
 }
+
+export type wsMessage = { type: string } & gameBadAPI

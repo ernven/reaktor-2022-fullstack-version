@@ -5,7 +5,7 @@ export type player = {
 
 type playerGameType = {
   name: string,
-  played: string
+  played?: string
 }
 
 export type gameRealTime = {

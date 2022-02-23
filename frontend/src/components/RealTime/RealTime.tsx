@@ -19,7 +19,7 @@ export default function RealTime() {
 
     webSocket.onmessage = e => {
       if (e.data) {
-        // With websockets, the data has an unusual string format, so it takes 2 parses to become a regular object.
+        // The data has an unusual string format, so it takes 2 parses to become a regular object.
         const parsedData = JSON.parse(JSON.parse(e.data))
 
         const { type, ...data } = parsedData
