@@ -10,6 +10,10 @@ interface propTypes {
 
 export default function Result({ game }: propTypes) {
 
+  if (!game.playerA.played || !game.playerB.played) {
+    return null
+  }
+
   const result = getGameOutcome(game.playerA.played, game.playerB.played)
 
   let textResult

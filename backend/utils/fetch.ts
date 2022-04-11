@@ -40,17 +40,29 @@ function updateGamesHistory(gameData: gameBadAPI[], players: string[], newPlayer
     if (!players.includes(entry.playerA.name)) { newPlayers.push(entry.playerA.name) }
     if (!players.includes(entry.playerB.name)) { newPlayers.push(entry.playerB.name) }
 
-    dataToAdd.push({
+    const game = buildGame(entry)
+
+    if (game) {
+      dataToAdd.push(game)
+    }
+  })
+
+  insertUtil('games', dataToAdd, 'id')
+}
+
+function buildGame(entry: gameBadAPI) {
+  if (entry.playerA.played && entry.playerB.played) {
+    return {
       id: entry.gameId,
       date: new Date(entry.t),
       first_name: entry.playerA.name,
       first_played: entry.playerA.played,
       second_name: entry.playerB.name,
       second_played: entry.playerB.played,
-    })
-  })
+    }
+  }
 
-  insertUtil('games', dataToAdd, 'id')
+  return null
 }
 
 function updatePlayerList(players: string[], newPlayers: string[]) {
