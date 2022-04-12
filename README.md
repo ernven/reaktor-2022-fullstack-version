@@ -39,6 +39,12 @@ For deployment, a production build can be done with:
     
 If a PaaS service like Heroku is being used, it's enough with building the frontend app and copying the folder into the backend, which can be used to serve it. Otherwise both can be built and another web server can be used (e.g. nginx).
 
+When deploying, we can change the start script in package.json:
+
+    "start": "node dist/index.js"
+
+The dist folder is where tsc outputs compiled files.
+
 If deploying the app, remember to set the environment variables for the backend! The previous ones plus one extra:
 
 `NODE_ENV` - set to 'production'
