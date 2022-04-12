@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "2.0.1",
   "description": "Backend for Reaktor 2022 project",
-  "main": "index.js",
+  "main": "index.ts",
   "type": "module",
   "exports": "./dist/index.js",
   "scripts": {
